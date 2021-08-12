@@ -1,0 +1,117 @@
+nav {
+    background: #fff;
+    box-shadow: var(--box-shadow);
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1em;
+    a {
+        margin: .5em;
+        display: flex;
+    }
+    .menu {
+        display: flex;
+    }
+}
+
+.app-nav {
+    box-shadow: none;
+    border-bottom: 1px solid lightgrey;
+    .user-icon {
+        // font-size: 2em;
+        border: 2px solid var(--yellow);
+        // width: 1.2em;
+        // height: 1.2em;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50px;
+        position: relative;
+        svg {
+            font-size: 2em;
+            cursor: pointer;
+            // position: relative;
+        }
+    }
+    .user-card {
+        background: var(--bg-grey);
+        position: absolute;
+        top: calc(var(--nav-height) + .5em);
+        right: 0;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;        
+        text-align: center;
+        .top-div, .bottom-div {
+            padding: .5em;
+        }
+        .bottom-div {
+            background: #fff;
+        }
+        &::before {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-left: 9px solid transparent;
+            border-right: 9px solid transparent;
+            border-bottom: 9px solid var(--bg-grey);
+            position: absolute;
+            bottom: 100%;
+            right: .5em;
+        }
+    }
+}
+
+.control-nav {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: var(--control-bar-width);
+    height: calc(100vh - var(--control-bar-width));
+    background: #000;
+    justify-content: end;
+    padding: 1em 0;
+    * {
+        color: #fff;
+    }
+    a {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        svg {
+            font-size: 1.2em;
+        }
+        p {
+            margin-top: 0;
+        }
+    }
+}
+
+
+.active-link {
+    color: var(--green)
+  }
+
+.control-nav-active * {
+    color: var(--green);
+}
+
+.app-header {
+    * {
+        font-size: 12px;
+    }
+    & + main {
+        margin-left: var(--control-bar-width);
+        padding: 0 1em;
+        *{
+            font-weight: 200;
+        }
+        h1 {
+            font-size: 20px;
+        }
+        h2 {
+            font-size: 16px;
+        }
+    }
+}

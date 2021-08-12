@@ -1,0 +1,39 @@
+
+form {
+    box-shadow: var(--box-shadow);
+    padding: 5em;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    position: absolute;
+    * {
+        font-size: 20px;
+        padding: .5em;
+        color: grey;
+    }
+    input, select, option {
+        // margin-bottom: 1em;
+        // line-height: 50px;
+        // font-size: 20px;
+        // padding: .5em;
+        border: 1px solid lightgrey;
+        &::-webkit-input-placeholder { /* Edge */
+            color: grey;
+        }
+        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: grey;
+        }
+        &::placeholder {
+            color: grey;
+        }
+        &[type="submit"] {
+            background: var(--green);
+            color: #fff;
+        }
+    }
+}
+
+.alert {
+    color: #fff;
+    margin: 0 .5em;
+}

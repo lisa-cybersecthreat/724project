@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+import { InitProvider } from './contexts/initContext';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <InitProvider>
+      <App />
+    </InitProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

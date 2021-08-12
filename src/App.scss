@@ -1,0 +1,55 @@
+:root {
+  --red: #b81d13;
+  --yellow: #efb700;
+  --green: #008450;
+  --light-green: #daeae0;
+  --dark-green: #006b41;
+  --bg-grey: #f5f5f5;
+  --box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  --swiper-theme-color: lightgrey !important;
+  --sec-padding: 1em 2em;
+  --control-bar-width: 50px;
+  --nav-height: 3.2em;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: ZohoPuvi,Helvetica,sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+main {
+  margin: 0 auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.app-header + main {
+  p, li {
+    font-size: 12px;
+  }
+}
