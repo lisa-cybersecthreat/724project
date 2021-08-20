@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/724project/static/css/main.5db6177a.chunk.css",
-    "main.js": "/724project/static/js/main.07417854.chunk.js",
-    "main.js.map": "/724project/static/js/main.07417854.chunk.js.map",
+    "main.css": "/724project/static/css/main.93691408.chunk.css",
+    "main.js": "/724project/static/js/main.9404bed5.chunk.js",
+    "main.js.map": "/724project/static/js/main.9404bed5.chunk.js.map",
     "runtime-main.js": "/724project/static/js/runtime-main.1b49a005.js",
     "runtime-main.js.map": "/724project/static/js/runtime-main.1b49a005.js.map",
     "static/js/2.7cdca04f.chunk.js": "/724project/static/js/2.7cdca04f.chunk.js",
@@ -10,14 +10,14 @@
     "static/js/3.de044471.chunk.js": "/724project/static/js/3.de044471.chunk.js",
     "static/js/3.de044471.chunk.js.map": "/724project/static/js/3.de044471.chunk.js.map",
     "index.html": "/724project/index.html",
-    "static/css/main.5db6177a.chunk.css.map": "/724project/static/css/main.5db6177a.chunk.css.map",
+    "static/css/main.93691408.chunk.css.map": "/724project/static/css/main.93691408.chunk.css.map",
     "static/js/2.7cdca04f.chunk.js.LICENSE.txt": "/724project/static/js/2.7cdca04f.chunk.js.LICENSE.txt",
     "static/media/Login.scss": "/724project/static/media/bg.245eae52.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.1b49a005.js",
     "static/js/2.7cdca04f.chunk.js",
-    "static/css/main.5db6177a.chunk.css",
-    "static/js/main.07417854.chunk.js"
+    "static/css/main.93691408.chunk.css",
+    "static/js/main.9404bed5.chunk.js"
   ]
 }
