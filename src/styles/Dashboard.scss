@@ -1,7 +1,10 @@
 #Dashboard {
+    * {
+        margin: 0;
+        padding: .2em;
+    }
     section {
         margin: 1em;
-        border: 1px solid lightgrey;
     }
     .action-card {
         border: 1px solid lightgrey;
@@ -20,5 +23,31 @@
             background: var(--light-green);
             cursor: pointer;
         }
+    }
+    .url-cards-div {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1em;
+        grid-auto-rows: 1fr;
+        padding: 1em 1.5em;
+        #UrlCard {
+            border: 1px solid var(--green);
+            padding: 1.2em;
+            word-break: break-all;     
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;         
+            .info-div {
+              
+            }
+        }
+    }
+    .check-section {
+        margin: 0;     
+        form {
+            position: unset;
+                   
+        }
+
     }
 }

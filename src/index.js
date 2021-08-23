@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { DataProvider } from './contexts/dataContext';
 import { InitProvider } from './contexts/initContext';
 import reportWebVitals from './reportWebVitals';
+import "./i18n";
+import { FunctionProvider } from './contexts/functionContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <InitProvider>
-      <App />
+      <DataProvider>
+        <FunctionProvider>
+          <Suspense fallback={<h1>Loading profile...</h1>}>
+            <App />
+          </Suspense>          
+        </FunctionProvider>
+      </DataProvider>
     </InitProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,0 +1,79 @@
+.update-box {
+    .personal-info-inputs {
+        .input-div {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    form {
+        position: relative;
+        padding: 2.5em !important;
+        width: 90%;
+        max-width: 500px;
+        *:not(input[type="submit"]) {
+            margin:0;
+            width: 100%;
+            box-sizing: border-box;
+            background: transparent;
+        }
+    }
+
+    .address-div {
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+    }
+    .x-btn {
+        width: fit-content !important;
+        margin-left: auto !important;
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        font-size: 1.5em;
+    }
+}
+
+#UpdatePWBox {
+    .input-div {
+        display: grid;
+    }
+    label {
+        // height: 0;
+    }
+}
+
+.delete-box{
+    box-shadow: var(--box-shadow);
+    box-sizing: border-box;
+    .top, .bottom {
+        padding: 1em 1.5em !important;
+    }
+    .top {
+        display: flex;
+        justify-content: space-between;
+        background: var(--bg-grey);
+        padding: .5em 2.5em;
+    }
+    input {
+        width: 100%;
+        margin-bottom: .5em !important;
+        box-sizing: border-box;
+        border-color: var(--red);
+    }
+    input[type="submit"] {
+        background: var(--red);
+        color: #fff;
+    }
+    span {
+        font-weight: 900;
+    }
+}
+
+.box {
+    width: 350px;
+    // height: 200px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 !important;
+}

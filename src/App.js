@@ -2,57 +2,72 @@ import {
   // BrowserRouter as Router,
   HashRouter as Router,
   Route,
-  Switch
+  Switch,
+  useHistory
 } from "react-router-dom"
 
 import './App.scss';
-import "./styles/form.scss"
+import "./styles/form.scss";
+import "./styles/box.scss";
 
-import Website from './components/Website';
-import Dashboard from './components/Dashboard';
+import Dashboard from "../src/components/app/Dashboard";
 import Home from "../src/components/website/Home";
 import Nav from "../src/components/website/Nav";
-import Notfound from "./components/Notfound";
+import Notfound from "../src/components/others/Notfound";
 import Login from "./components/website/Login";
 import Register from "./components/website/Register";
 import Navbar from "./components/app/Navbar";
 import MyAccount from "./components/app/MyAccount";
+import { useContext, useEffect, useState } from "react";
+import { InitContext, InitProvider } from "./contexts/initContext";
+import { DataContext } from "./contexts/dataContext";
 
-const WebsiteRouteNav = ({exact, path, component:Component, ...rest}) => {
-  return <Route exact={exact} path={path} {...rest} render={(routeProps) => {
-     return <><Nav {...routeProps}/><Component {...routeProps}/></>
-  }}
-  />
-}
+function App () {
+//   const { 
+//     thisUser, setThisUser,
+//     runFetch, setRunFetch
+// } = useContext(DataContext)
 
-const AppRouteNav = ({exact, path, component: Component, ...rest}) => {
-  return <Route exact={exact} path={path} {...rest} render={(routeProps) => {
-    return<><Navbar {...routeProps}/><Component {...routeProps} /></>
-  }}
-  />
-}
 
-function App() {
+  const WebsiteRouteNav = ({exact, path, component:Component, ...rest}) => {
+    return <Route exact={exact} path={path} {...rest} render={(routeProps) => <>
+       <Nav {...routeProps}/>
+       <Component {...routeProps}/></>}/>
+  }
+
+  const AppRouteNav = ({exact, path, component: Component, ...rest}) => {
+    return <Route exact path={path} {...rest} render={(routeProps) => <>
+      <Navbar {...routeProps} />
+      <Component {...routeProps} /></>}/>
+  }
+
+  useEffect(()=> {
+    console.log("run App useEffect")
+    console.log("localStorge userid: "+ localStorage.getItem("userid"))
+    if(window.location.hash.indexOf("app")===-1) {
+        console.log("not /app path, return, do not fetch")
+        localStorage.removeItem("userid")
+        localStorage.removeItem("token")
+        // setThisUser({})
+        return
+    } 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+
   return (
     <div className="App">
       <Router>
-          {/* <Nav/> */}
           <Switch>
               <WebsiteRouteNav exact path="/" component={(props)=><Home{...props}/>} />
-              {/* <Route exact path="/" component={(props)=><Home{...props}/>} /> */}
               <Route exact path="/login" component={(props)=><Login{...props}/>} />
               <Route exact path="/register" component={(props)=><Register{...props}/>} />     
               
-              <AppRouteNav exact path="/app" component={(props)=><Dashboard{...props}/>} />
-              {/* <Route exact path="/app" component={(props)=><Dashboard{...props}/>} /> */}
+              <AppRouteNav exact path="/app" component={(props)=><Dashboard{...props}/>}/>
               <AppRouteNav exact path="/app/myaccount" component={(props)=> <MyAccount{...props}/>} />
 
               <Route path='*' exact={true} component={Notfound} />
-
-              {/* <Route exact path="/" component={()=><Website/>} />
-              <Route exact path="/app" component={()=><Dashboard/>} /> */}
           </Switch>    
-
       </Router>
 
 

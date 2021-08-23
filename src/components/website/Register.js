@@ -1,63 +1,84 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { InitContext } from "../../contexts/initContext";
 import "../../styles/Register.scss";
 
 import logo from "../../images/logo.png";
-import { Redirect } from "react-router-dom";
-import Dashboard from "../Dashboard";
+import { Redirect, NavLink } from "react-router-dom";
+import Dashboard from "../app/Dashboard";
+import PersaonalInfoInputs from "../others/PersonalInfoInputs";
 
 
 function Register (props) {
-    const { transactionUsersUrl } = useContext(InitContext)
+    const { authUrl, transactionUsersUrl } = useContext(InitContext)
+    const { t, i18n } = useTranslation();
     const [inputValue, setInputValue] = useState({      
 
     })
     const [alert, setAlert] = useState("")
     const [cityNo, setCityNo] = useState(0)
 
-    const changeInput= (e) => {
+    const changeInput= e => {
         setInputValue({...inputValue, 
             [e.target.name] : e.target.value
         })
+        setAlert("")
     }
-
-    // const changeCity=()=>{
-    //     console.log(e.target.name)
-    //     console.log(e.target.value)
-    // }
 
     const onSubmit= (e) => {
         e.preventDefault();
 
-        const data={...inputValue, action : "Add"}
+        const data={...inputValue,  action : "Add"}
         console.log(data)
+
+
         fetch(transactionUsersUrl, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                // 'Authorization': `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify(data)
         })
         .then(res=>res.json())
         .then(data=>{
             console.log(data)
-            setAlert(data.result)
+            setAlert(data.result.toLowerCase())
 
-            if(data.result.toLowerCase()==="ok") {
-                setTimeout(()=>{
-                    props.history.push({
-                        pathname: "/app",
-                        state: data
+            if(data.result.toLowerCase().indexOf("ok")!==-1 || data.result.toLowerCase().indexOf("success")!==-1) {
+                localStorage.setItem("userid", inputValue.userid)
+
+                fetch(authUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "userid": inputValue.userid ,
+                        "password" : inputValue.password,
+                        "rememberme" : "1"
                     })
-                }, 1000)
+                })
+                .then(res=>res.json())
+                .then(data=>{
+                    console.log(data)
+                    setAlert(data.result.toLowerCase())
+                    if(data.result.toLowerCase().indexOf("ok") !== -1) {
+                        localStorage.setItem("userid", inputValue.userid)
+                        localStorage.setItem("token", data.token)
+                        setTimeout(()=>{
+                            props.history.push({
+                                pathname: "/app",
+                                state: data.token
+                            })
+                        }, 500)          
+                    } 
+                })
+                .catch(err=>console.error(err))
             } 
         })
         .catch(err=>console.error(err))
-        setTimeout(()=>{
-            props.history.push("/app")
-        }, 1000)
-
     } 
 
     useEffect(()=>{
@@ -65,11 +86,11 @@ function Register (props) {
         fetch(transactionUsersUrl, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfb…DA2fQ.nxlqiROi-COTgPHH4kEP9iEfnQ7rNMJeCHbKgbkvq4I"
             },
             body: JSON.stringify({
-                "action" : "Query",      
-                // "userid": "123"
+                "action" : "Query",  
                 "userid": ""
             })
         })
@@ -84,98 +105,16 @@ function Register (props) {
     return(
         <main id="Register">
             <div className="top-div">
-                <a href="/" className="logo"><img src={logo} alt="logo" /></a>
-                <p className="login">Have an account??&nbsp;&nbsp;<a href="/login">Login</a></p>                
+                <NavLink exact to="/" ><img src={logo} alt="logo" /></NavLink>
+                <p className="login">{t("have_account")}&nbsp;&nbsp;<NavLink exact to="/login">{t("login")}</NavLink></p>   
             </div>
             <form onSubmit={onSubmit}>
-                <h2>Sign Up for free 30 days trial!</h2>
-                <div className="input-div">
+                <h2>{t("sign_up_free")}</h2>
+                    <PersaonalInfoInputs changeInput={changeInput} inputValue={inputValue} t={t}/>
                     <label>
-                        <p>user id<span>*</span></p>
-                        {/* <input name="userid" type="text" placeholder="" value={inputValue.userid} onChange={changeInput} required /> */}
-                        <input name="userid" type="text" placeholder="" onChange={changeInput} required />
+                        <input type="submit" value={t("register")} disabled={alert.length>0 ? true : false} />  
                     </label>
-                    <label>
-                        <p>password<span>*</span></p>
-                        {/* <input name="password" type="password" placeholder="" value={inputValue.password} onChange={changeInput} required /> */}
-                        <input name="password" type="password" placeholder="" onChange={changeInput} required />
-                    </label>
-                    <label>
-                        <p>company</p>
-                        <input name="company" type="text" placeholder="" onChange={changeInput} />
-                        {/* <input name="company" type="text" placeholder="" value={inputValue.company} onChange={changeInput} /> */}
-                    </label>
-                    <label>
-                        <p>user name</p>
-                        <input name="username" type="text" placeholder="" onChange={changeInput} />
-                        {/* <input name="username" type="text" placeholder="" value={inputValue.username} onChange={changeInput} /> */}
-                    </label>
-                    <label>
-                        <p>title</p>
-                        <input name="title" type="text" placeholder="" onChange={changeInput} />
-                        {/* <input name="title" type="text" placeholder="" value={inputValue.title} onChange={changeInput} /> */}
-                    </label>
-                    <label>
-                        <p>email<span>*</span></p>
-                        <input name="email" type="email" placeholder="" onChange={changeInput} required />
-                        {/* <input name="email" type="email" placeholder="" value={inputValue.email} onChange={changeInput} required /> */}
-                    </label>
-                    <label>
-                        <p>birthday</p>
-                        <input name="birthday" type="date" placeholder="" onChange={changeInput} />
-                        {/* <input name="birthday" type="date" placeholder="" value={inputValue.birthday} onChange={changeInput} /> */}
-                    </label>
-                    <label>
-                        <p>gender</p>
-                        <select name="gender" onChange={changeInput} defaultValue="">
-                            <option value=""></option>
-                            <option value="m">male</option>
-                            <option value="f">female</option>
-                        </select>                        
-                    </label>
-                    <label>
-                        <p>telephone</p>
-                        {/* <input name="telephone" type="tel" placeholder="" value={inputValue.telephone} onChange={changeInput} /> */}
-                        <input name="telephone" type="tel" placeholder="" onChange={changeInput} />
-                    </label>
-                    <label>
-                        <p>mobile</p>
-                        {/* <input name="mobile" type="tel" placeholder="" value={inputValue.mobile} onChange={changeInput} />  */}
-                        <input name="mobile" type="tel" placeholder="" onChange={changeInput} /> 
-                    </label>
-                    {/* <label>address
-                        <select name="city" onChange={changeCity}>
-                            {
-                                cities.map((city, i)=><option value={city.CityName} key={i} >{city.CityName}</option>)
-                            }
-                        </select>
-                        <select>
-                            {
-                                cities[cityNo].AreaList.map(area=><option>{`${area.ZipCode} ${area.AreaName}`}</option>)
-                            }
-                        </select>
-                    </label> */}
-                </div>
-                    <div className="address-div">
-                        <label><p>zipcode</p>
-                            {/* <input name="zipcode" type="text" placeholder="" value={inputValue.zipcode} onChange={changeInput} /> */}
-                            <input name="zipcode" type="text" placeholder="" value={inputValue.zipcode} onChange={changeInput} />
-                        </label>
-                        <label><p>address</p>
-                            {/* <input name="address" type="text" placeholder="" value={inputValue.address} onChange={changeInput} />  */}
-                            <input name="address" type="text" placeholder="" value={inputValue.address} onChange={changeInput} /> 
-                        </label>              
-                    </div>    
-                    <label>
-                        <input type="submit" value="sign up" />  
-                    </label>
-
-
-                    
-                {/* <input type="submit" value="next" disabled={alert.indexOf("not")===-1 ? false : true} /> */}
-                {
-                   ( alert.length>0 ) && <h1 className="alert" style={{background: alert.indexOf("ok")>0? "var(--green)": "var(--red)"}}>{alert}</h1>
-                }
+                    { alert.length>0 && <h1 className="alert" style={{background: alert.indexOf("ok")!==-1 || alert.indexOf("success")!==-1 ? "var(--green)": "var(--red)"}}>{alert}</h1>}
             </form>
         </main>
     )

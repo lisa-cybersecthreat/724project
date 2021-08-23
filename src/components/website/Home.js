@@ -2,10 +2,7 @@ import React, { useState } from "react";
 
 
 function Home (props) {
-    const [value, setValue]=useState({
-        name: "hello",
-        date: "today"
-    })
+    const [value, setValue]=useState({})
     const clickRedirect=(e)=>{
         console.log("click redirect button")
 
