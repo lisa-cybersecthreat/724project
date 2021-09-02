@@ -27,9 +27,37 @@ nav {
     }
 }
 
+.app-header {
+    position: fixed;
+    width: 100%;
+    * {
+        font-size: 12px;
+    }
+    & ~ main {
+        // margin-top: var(--nav-height)
+    }
+    & + main {
+        margin-left: var(--control-bar-width);
+        padding-top: var(--nav-height);
+        padding-left: 1em;
+        *{
+            font-weight: 200;
+        }
+        h1 {
+            font-size: 20px;
+        }
+        h2 {
+            font-size: 16px;
+        }
+    }
+}
+
 .app-nav {
     box-shadow: none;
     border-bottom: 1px solid lightgrey;
+    p {
+        align-self: center;
+    }
     .user-icon {
         // font-size: 2em;
         border: 2px solid var(--yellow);
@@ -41,6 +69,7 @@ nav {
         align-items: center;
         border-radius: 50px;
         position: relative;
+        margin: 0 1em;
         svg {
             font-size: 2em;
             cursor: pointer;
@@ -80,8 +109,8 @@ nav {
     display: flex;
     flex-direction: column;
     position: fixed;
-    width: var(--control-bar-width);
-    height: calc(100vh - var(--control-bar-width));
+    // width: var(--control-bar-width);
+    height: calc(100vh - var(--nav-height));
     background: #000;
     justify-content: end;
     padding: 1em 0;
@@ -110,21 +139,3 @@ nav {
     color: var(--green);
 }
 
-.app-header {
-    * {
-        font-size: 12px;
-    }
-    & + main {
-        margin-left: var(--control-bar-width);
-        padding: 0 1em;
-        *{
-            font-weight: 200;
-        }
-        h1 {
-            font-size: 20px;
-        }
-        h2 {
-            font-size: 16px;
-        }
-    }
-}

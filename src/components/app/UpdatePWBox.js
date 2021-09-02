@@ -4,7 +4,7 @@ import { FunctionContext } from "../../contexts/functionContext";
 
 const UpdatePWBox = (props) => {
     const { runFetch, setRunFetch, setRemark } =useContext(DataContext);
-    const { FetchTransactionCheckURL } = useContext(FunctionContext);
+    const { FetchTransactionUsersUrl } = useContext(FunctionContext);
     const [updateValue, setUpdateValue] = useState({userid: props.thisUser.userid})
     // const [alert, setAlert] = useState("")
     const confirmbtnRef = useRef()
@@ -37,7 +37,7 @@ const UpdatePWBox = (props) => {
         } else {
             console.log("match")
             
-            FetchTransactionCheckURL("Update", updateValue, props.t("update_success"), props.setIsUpdatePWBtn )
+            FetchTransactionUsersUrl("Update", updateValue, props.t("update_success"), props.setIsUpdatePWBtn )
             // fetch(transactionUsersUrl, {
             //     method: "POST",
             //     headers: {

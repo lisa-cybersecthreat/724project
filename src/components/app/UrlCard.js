@@ -1,7 +1,9 @@
 import { useState, useRef, useContext, useEffect } from "react";
 import { DataContext } from "../../contexts/dataContext";
 import { InitContext } from "../../contexts/initContext";
+import { v4 as uuidv4 } from 'uuid';
 
+import "../../styles/UrlCard.scss"
 
 function UrlCard (props) {
     const { 
@@ -21,6 +23,7 @@ function UrlCard (props) {
         startcheckdatetime: new Date(new Date().setDate(new Date().getDate()-1)).toISOString().slice(0, 10),
         endcheckdatetime: new Date().toISOString().slice(0, 10)
     })
+    const [ hisResult, setHisResult ] = useState(null)
 
     useEffect(()=>{
         setAlert("");
@@ -39,6 +42,7 @@ function UrlCard (props) {
         console.log("change date input")
         console.log(e.target.value)
         setDate({...date, [e.target.name]: e.target.value})
+        setHisResult(null)
     }
 
     const submitUpdate = e => {
@@ -101,21 +105,21 @@ function UrlCard (props) {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
             },
-            body: {
-                // action: "Query",
-                // usersseqno: props.url.usersseqno,
-                // pageurl: props.url.pageurl,
-                // startcheckdatetime: date.startcheckdatetime,
-                // endcheckdatetime: date.endcheckdatetime
-                "action": "Query",
-                "usersseqno": "27",   
-                "pageurl": "",    
-                "startcheckdatetime":  "2021-08-03",  
-                "endcheckdatetime":  "2021-08-23",  
-            }
+            body: JSON.stringify({
+                action: "Query",
+                usersseqno: props.url.usersseqno,
+                // usersseqno: "1",
+                pageurl: props.url.pageurl,
+                // pageurl: "https://www.104.com.tw/company/1a2x6bllid", 
+                startcheckdatetime: date.startcheckdatetime,
+                endcheckdatetime: date.endcheckdatetime
+            })
         })
         .then(res => res.json())
-        .then( data => console.log(data))
+        .then( data => {
+            console.log(data);
+            setHisResult(data)
+        })
         .catch(err => console.error(err))
     }
 
@@ -153,12 +157,27 @@ function UrlCard (props) {
                     </label>
                     <input type="submit" value={`${props.t("check")} url`} ref={checkBtnRef}/>    
                     <h1 style={{color: alert.indexOf("ok")!==-1 ? "var(--green)" : "var(--red)" }}>{alert.indexOf("ok")!==-1 ? props.t("delete") : alert}</h1>                          
+                    <div className="hisReult-div">
+                    {
+                        hisResult===null ? "" : (
+                            hisResult.length < 1 ? <h1 style={{}}>{props.t("no_data_found")}</h1> :
+                            hisResult.map(result=>
+                            <ul key={uuidv4()} className="each-result">
+                                <li><span>checkdatetime</span><span>{result.checkdatetime}</span></li>
+                                <li><span>checkstatus</span><span>{result.checkstatus}</span></li>
+                                <li><span>noticemail</span><span>{result.noticemail}</span></li>
+                                <li><span>noticemailstatus</span><span>{result.noticemailstatus}</span></li>
+                                <li><span>pageurl</span><span>{result.pageurl}</span></li>
+                                <li><span>seqno</span><span>{result.seqno}</span></li>
+                            </ul>)                            
+                        )
+                    }
+                </div>
                 </form>
             </section>
             <div className="btn-div">
                 <button onClick={()=>setIsUpdateCard(!isUpdateCard)}>{props.t("update")}</button>
                 <button onClick={()=>setIsDeleteCard(!isDeleteCard)}>{props.t("delete")}</button>
-                {/* <button onClick={()=>setIsCheckCard(!isCheckCard)}>{props.t("check")}</button> */}
             </div>
             <div className="update-box overlay" style={{display: isUpdateCard ? "flex" : "none"}}>
                 <div>
@@ -173,7 +192,6 @@ function UrlCard (props) {
                         <h1 style={{color: alert.indexOf("ok")!==-1 ? "var(--green)" : "var(--red)" }}>{alert.indexOf("ok")!==-1 ? props.t("update_success") : alert}</h1>
                     </form>                    
                 </div>
-
             </div>    
             <div className="DeleteCard overlay delete-box" style={{display: isDeleteCard ? "flex" : "none"}} >
                     <div className="box">

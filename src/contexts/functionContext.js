@@ -17,7 +17,7 @@ export const FunctionProvider = props => {
         remark, setRemark,
     } = useContext(DataContext)
 
-    function FetchTransactionCheckURL (action, value, remarkText, setToggle) {
+    function FetchTransactionUsersUrl (action, value, remarkText, setToggle) {
 
         fetch(transactionUsersUrl, {
             method: "POST",
@@ -26,12 +26,12 @@ export const FunctionProvider = props => {
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify({
-                ...value, 
+                ...value,
                 action: action
             })
         })
         .then(res=>res.json())
-        .then(data=>{
+        .then( data=>{
             console.log(data)
             setRemark({
                 res: data.result.toLowerCase(),
@@ -58,7 +58,7 @@ export const FunctionProvider = props => {
 
     return(
         <FunctionContext.Provider value={{
-            FetchTransactionCheckURL
+            FetchTransactionUsersUrl
         }}>
             { props.children }
         </FunctionContext.Provider>

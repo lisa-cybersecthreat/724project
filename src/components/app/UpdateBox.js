@@ -8,7 +8,7 @@ const UpdateBox = (props) => {
         runFetch, setRunFetch,
         remark, setRemark,
     } =useContext(DataContext);
-    const { FetchTransactionCheckURL } = useContext(FunctionContext)
+    const { FetchTransactionUsersUrl } = useContext(FunctionContext)
 
     const [updateValue, setUpdateValue] = useState({
         userid: props.thisUser.userid
@@ -22,7 +22,7 @@ const UpdateBox = (props) => {
     const onSubmit = e => {
         e.preventDefault();
 
-        FetchTransactionCheckURL("Update", updateValue, props.t("update_success"), props.setIsUpdateBtn)
+        FetchTransactionUsersUrl("Update", updateValue, props.t("update_success"), props.setIsUpdateBtn)
 
         // fetch(props.transactionUsersUrl, {
         //     method: "POST",

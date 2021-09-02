@@ -39,11 +39,10 @@ function Dashboard (props) {
 
     useEffect(()=>{
         console.log(localStorage.getItem("token"))
-
         if(thisUser.seqno===undefined) return
+
         fetch(transactionCheckURL, {
             method: "POST",
-            // headers: header_auth,
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -53,30 +52,29 @@ function Dashboard (props) {
                 "usersseqno": thisUser.seqno,
                 "pageurl": "",
                 "noticemail": thisUser.email
-                // "action": "Query",
-                // "usersseqno": 9,
-                // "pageurl": "",
-                // "noticemail": "ningsen.cheng@cybersecthreat.com"
             })
         })
         .then(res => res.json())
         .then(data =>{
             console.log(data)
+            // {result: "Unauthorized"}
+            if(data.hasOwnProperty("result")) {
+                if(data.result.toLowerCase().indexOf("unauthorize")>-1) props.history.push("/")
+                return
+            }  
             setAllUrls(data)
         })
         .catch(err => console.error(err))
 
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [thisUser, fetchUrls])
 
-    const onSubmit = e => {
+    const submitAddUrl = e => {
         e.preventDefault()
         submitBtnRef.current.disabled=true;
 
         fetch(transactionCheckURL, {
             method: "POST",
-            // headers: header_auth,
             headers: {
                 "Content-Type": "application/json",
                 'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -85,7 +83,7 @@ function Dashboard (props) {
                 "action" : "Add",
                 "usersseqno" : thisUser.seqno,
                 "pageurl": inputValue.pageurl,
-                "noticemail": thisUser.email  
+                "noticemail": thisUser.email,
             })
         })
         .then(res=>res.json())
@@ -126,11 +124,9 @@ function Dashboard (props) {
                                                  />)
                         }                        
                     </div>
-
-                    
                 </div>
                 <div style={{display: isAddUrlCard ? "flex" : "none"}} className="overlay update-box">
-                    <form onSubmit={onSubmit}>
+                    <form onSubmit={submitAddUrl}>
                     <div className="x-btn" onClick={()=>setIsAddUrlCard(false)}>X</div>
                         <label>url:*
                             <input type="url" name="pageurl" value={inputValue.pageurl===undefined ? "" : inputValue.pageurl} onChange={changeInput} required/>
@@ -144,7 +140,6 @@ function Dashboard (props) {
                         }
                     </form>
                 </div>  
-                         
             </section>
         </main>
         </>

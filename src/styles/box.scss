@@ -9,7 +9,7 @@
         position: relative;
         padding: 2.5em !important;
         width: 90%;
-        max-width: 500px;
+        max-width: 900px;
         *:not(input[type="submit"]) {
             margin:0;
             width: 100%;
@@ -20,7 +20,7 @@
 
     .address-div {
         display: grid;
-        grid-template-columns: 1fr 5fr;
+        grid-template-columns: 1.5fr 5fr;
     }
     .x-btn {
         width: fit-content !important;

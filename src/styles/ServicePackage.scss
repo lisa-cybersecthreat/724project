@@ -1,0 +1,180 @@
+.ServicePackage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // border: 1px solid lightgrey;
+    // border-width: 1px 0 1px 0;
+    // padding: 1em !important;
+    // margin: 1em !important;
+    // background: var(--bg-grey);
+    min-height: 100vh;
+    .wrapper {
+        width: 90%;
+        margin: 0 auto;
+        max-width: 1200px;
+        & > section h1, & > p {
+            margin: .5em auto;
+        }
+    }
+    section {
+        display: unset !important;
+        & > * {
+            margin: 1em;
+        }
+        h1[class*="step"] {
+            display: flex;
+            span {
+                    font-size: unset;
+                    background: var(--light-green);
+                    background-color: var(--bg-grey);
+                    padding: .5em 1em !important;
+                    box-sizing: border-box;
+                    display: flex;
+                    align-items: center;
+                    // justify-content: space-between;
+                    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+                }
+            span:last-child {
+                width: 100%;
+                justify-content: space-between;
+            }
+            * {
+                // color: var(--green);
+                // font-weight: 900;
+            }
+        }
+        
+    }
+    .PriceCard {
+        background: #fff;
+        text-align: center;
+        padding: 1em !important;
+        p {
+            align-items: center;
+            text-align: center;
+            display: unset !important;
+        }
+        a {
+            width: fit-content;
+            align-self: center;
+            padding: .15em 1.5em !important;
+            background: #000;
+            margin: .5em !important;
+            font-size: 900;
+        }
+        &:hover {
+            transform: scale(1.02);
+        }
+        .title {
+            font-weight: 900;
+            background: unset
+        }
+    }
+
+    button, a {
+        width: fit-content;
+        align-self: center;
+        /* padding: .15em 1.5em !important; */
+        background: #000;
+        margin: .5em !important;
+        border: none;
+        color: #fff;
+        padding: .5em 1.5em !important;
+        font-size: 16px;
+    }
+    .price {
+        color: var(--green);
+        font-size: 1.2em !important;
+    }
+    form {
+        position: unset;
+        box-shadow: none;
+        padding: 0 5em;
+        * {
+            font-size: 16px;
+        }
+        .personal-info-inputs > div{
+            padding: 0;
+        }
+        .basic-info-div {
+            border: 1px solid var(--bg-grey);
+            display: flex;
+            flex-direction: column;
+            label {
+                // width: max-content;
+            }
+            input {
+                border: none;
+                pointer-events: none;
+            }
+        }
+        .input-div {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            input, select {
+                width: 100%;
+            }
+        }
+        .address {
+            display: flex;
+            flex-direction: column;
+            input, select {
+                width: 100%;
+            }
+            // label {
+            //     display: flex;
+            //     align-items: center;
+            //     input {
+            //         flex-grow: 1;
+            //     }
+            // }
+        }
+        input[type*="checkbox"] {
+            width: inherit;
+            margin-left: 1em;
+        }
+    }
+
+
+    //classList
+    .thisPackage {
+        // & + div {
+        //     display: none;
+        // }
+        .PriceCard {
+            background: var(--bg-grey);
+            a {
+                cursor: default;
+                background: transparent;
+                color: var(--yellow);
+                pointer-events: none;
+            }
+        }
+    }
+    .selectedPlan {
+        .PriceCard {
+            .price {
+                color: var(--red)
+            }
+            a {
+                pointer-events: none;
+                background:transparent;
+                svg {
+                    fill: var(--red);
+                    font-size: 2em;
+                }
+            }       
+        }
+    }
+    div[data-step*="selected"] {
+        > div:not(.selectedPlan){
+                display: none;
+        }
+    }
+}
+
+.disabled-input {
+    pointer-events: none;
+    background: transparent;
+    outline: none;
+}

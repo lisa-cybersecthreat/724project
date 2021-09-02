@@ -10,18 +10,22 @@
         margin: .5em;
         padding: 1em;
         display: grid;
-        grid-template-columns: 1fr 5fr;
+        grid-template-columns: 120px 1fr;
         &:nth-of-type(1) {
             border-top: 1px solid lightgrey;
         }
     }
     .account-setting {
         p, label {
-            display: grid;
-            grid-template-columns: 1fr 5fr;
+            // display: grid;
+            // grid-template-columns: 1fr 5fr;
+            // align-items: center;
         }
         select {
             width: fit-content;
         }
+    }
+    button, select {
+        margin: .5em;
     }
 }

@@ -2,7 +2,7 @@ import { useRef, useState, useContext } from "react";
 import { FunctionContext } from "../../contexts/functionContext";
 
 function DelBox(props) {
-    const { FetchTransactionCheckURL } = useContext(FunctionContext)
+    const { FetchTransactionUsersUrl } = useContext(FunctionContext)
     const submitRef=useRef()
     const [ alert, setAlert ] = useState("")
 
@@ -17,7 +17,7 @@ function DelBox(props) {
     const onSubmit = async e => {
         e.preventDefault();
 
-        await FetchTransactionCheckURL("Delete", {userid: props.thisUser.userid}, props.t("update_success"), props.setIsDelBtn )
+        await FetchTransactionUsersUrl("Delete", {userid: props.thisUser.userid}, props.t("update_success"), props.setIsDelBtn )
 
         props.history.push("/");   
 

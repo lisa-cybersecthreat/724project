@@ -18,9 +18,11 @@ import Login from "./components/website/Login";
 import Register from "./components/website/Register";
 import Navbar from "./components/app/Navbar";
 import MyAccount from "./components/app/MyAccount";
+import Price from "./components/website/Price";
 import { useContext, useEffect, useState } from "react";
 import { InitContext, InitProvider } from "./contexts/initContext";
 import { DataContext } from "./contexts/dataContext";
+import ServicePackage from "./components/app/ServicePackage";
 
 function App () {
 //   const { 
@@ -41,30 +43,18 @@ function App () {
       <Component {...routeProps} /></>}/>
   }
 
-  useEffect(()=> {
-    console.log("run App useEffect")
-    console.log("localStorge userid: "+ localStorage.getItem("userid"))
-    if(window.location.hash.indexOf("app")===-1) {
-        console.log("not /app path, return, do not fetch")
-        localStorage.removeItem("userid")
-        localStorage.removeItem("token")
-        // setThisUser({})
-        return
-    } 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-
   return (
     <div className="App">
       <Router>
           <Switch>
               <WebsiteRouteNav exact path="/" component={(props)=><Home{...props}/>} />
               <Route exact path="/login" component={(props)=><Login{...props}/>} />
-              <Route exact path="/register" component={(props)=><Register{...props}/>} />     
+              <Route exact path="/register" component={(props)=><Register{...props}/>} />  
+              <WebsiteRouteNav exact path="/pricing" component={(props)=><Price{...props}/>} />   
               
               <AppRouteNav exact path="/app" component={(props)=><Dashboard{...props}/>}/>
               <AppRouteNav exact path="/app/myaccount" component={(props)=> <MyAccount{...props}/>} />
+              <AppRouteNav exact path="/app/store" component={(props)=> <ServicePackage{...props}/>} />
 
               <Route path='*' exact={true} component={Notfound} />
           </Switch>    

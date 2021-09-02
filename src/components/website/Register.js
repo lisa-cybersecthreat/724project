@@ -83,11 +83,12 @@ function Register (props) {
 
     useEffect(()=>{
         console.log(props.history)
+        var token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5ldyIsInJvbGUiOiJmcmVlIiwibmJmIjoxNjI5OTUyMzYzLCJleHAiOjE2Mjk5NTk1NjIsImlhdCI6MTYyOTk1MjM2M30.ot2rLofOM-jdM6V8VIL1ojgKJo2E7C3U3oxHgLVruFA"
         fetch(transactionUsersUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfb…DA2fQ.nxlqiROi-COTgPHH4kEP9iEfnQ7rNMJeCHbKgbkvq4I"
+                "Authorization": `Bearer ${token}` 
             },
             body: JSON.stringify({
                 "action" : "Query",  

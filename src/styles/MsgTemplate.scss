@@ -1,0 +1,66 @@
+#MsgTemplate {
+    .box {
+        background: #fff;
+        border-radius: 5px;
+        // width: 90%;
+        // max-width: 350px;
+        // height: 280px;
+        text-align: center;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2.5em !important;
+        // gap: 1em;
+        p, input {
+            font-size: 1.2em;
+        }
+        input {
+            width: 100%;
+            padding: .5em;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        svg {
+            color: #fff;
+            font-size: 3.5em;
+        }
+        input {
+            color: #fff;
+            background: var(--green);
+            border-radius: 5px;
+            text-align: center;
+            text-transform: uppercase;
+            border: none;
+            margin-top: 1em;
+            cursor: pointer;
+        }
+        ul {
+            border: 1px solid olive;
+        }
+    }
+}
+
+.msg-red {
+    .circle {
+        background: var(--red) !important;
+    }
+    input {
+        background-color: var(--red) !important;
+    }
+}
+
+.circle {
+    width: 90px;
+    height: 90px;
+    border-radius: 50px;
+    background: var(--green);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

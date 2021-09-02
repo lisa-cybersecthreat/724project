@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { InitContext } from "./initContext";
 
 export const DataContext = createContext();
@@ -8,9 +8,12 @@ export const DataProvider = props => {
         authUrl,
         transactionUsersUrl,
         transactionCheckURL,
-        header_auth
+        header_auth,
+        plans
     } = useContext(InitContext)
     const [thisUser, setThisUser] =useState({})
+    const [thisPackage, setThisPackage] = useState(plans[0])
+    const [ packages, setPackages] = useState([])
     const [runFetch, setRunFetch] = useState(false);
     const [remark, setRemark] = useState({
         res: "",
@@ -22,6 +25,8 @@ export const DataProvider = props => {
             thisUser, setThisUser,
             runFetch, setRunFetch,
             remark, setRemark,
+            thisPackage, setThisPackage,
+            packages, setPackages
             // FetchTransactionCheckURL
         }}>
             {props.children}
