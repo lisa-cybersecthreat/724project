@@ -12,6 +12,7 @@ import EnableBox from "./EnableBox";
 import ServicePackage from "./ServicePackage";
 import UpdateBox from "./UpdateBox";
 import UpdatePWBox from "./UpdatePWBox";
+import OrderMaster from "./OrderMaster";
 
 function MyAccount (props) {
     const {             
@@ -32,9 +33,8 @@ function MyAccount (props) {
     const [isUpdateBtn, setIsUpdateBtn] = useState(false);
     const [isUpdatePWBtn, setIsUpdatePWBtn] = useState(false);
     const [ isDelBtn, setIsDelBtn ] = useState(false) 
-    const [alert, setAlert] = useState("");
-    const [selectedPackage, setSelectedPackage] = useState({})
     const [orderMaster, setOrderMaster] = useState([])
+    const [orderDetail, setOrderDetail] = useState([])
     const [isEnableBox, setIsEnableBox] = useState(false)
     // const accountSettingRef=useRef()
 
@@ -86,7 +86,7 @@ function MyAccount (props) {
         .catch(err=>console.error(err))
     }
 
-    const delOderMaster = elm => {
+    const delOrderMaster = elm => {
         fetch(TransactionOrdermaster, {
             method: "POST",
             headers: {
@@ -101,7 +101,7 @@ function MyAccount (props) {
         .then(res=>res.json())
         .then(data=>{
             console.log(data)
-            window.location.reload()
+            // window.location.reload()
         })
         .catch(err=>console.error(err))
     }
@@ -110,7 +110,7 @@ function MyAccount (props) {
         setIsEnableBox(!isEnableBox)
     }
 
-    const clickOrderDetail = e => {
+    const clickOrderDetail = elm => {
         fetch(TransactionOrderdetail, {
             method: "POST",
             headers: {
@@ -119,13 +119,15 @@ function MyAccount (props) {
             },
             body: JSON.stringify({
                 action: "Query",
-                orderno: "",
+                orderno: elm,
                 packageid: ""
             }),      
         })
         .then(res=>res.json())
         .then(data=>{
             console.log(data)
+            if(data[0].orderno===undefined) return
+            setOrderDetail(data)
         })
         .catch(err=>console.error(err))
     }
@@ -217,13 +219,16 @@ function MyAccount (props) {
                     }
                     {
                         orderMaster.length>0 && <div>
-                            <h2>{t("plan_details")}: orderMaste<button onClick={clickOrderDetail}>clickOrderDetail</button></h2>
-                            <div style={{display: "flex"}}>
+                            <h2>{t("plan_details")}</h2>
+                            <div>
                             {
-                                orderMaster.map((om, i)=><ul style={{border: "1px solid olive"}} key={uuidv4()}>
-                                    {Object.keys(om).map((key, i)=><li key={uuidv4()}>{key}: {Object.values(om)[i]}</li>)}
-                                    <button onClick={()=>delOderMaster(om.orderno)}>delete</button>
-                                </ul>)
+                                orderMaster.map((om, i)=> <OrderMaster
+                                                            uuidv4={uuidv4}
+                                                            om={om}
+                                                            clickOrderDetail={clickOrderDetail}
+                                                            delOrderMaster={delOrderMaster}
+                                                            orderDetail={orderDetail}
+                                                             />)
                             }        
                             </div>
 

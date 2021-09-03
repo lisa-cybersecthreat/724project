@@ -15,6 +15,7 @@ function ServicePackage(props) {
         TransactionServicepackage,
         TransactionUserServicepackage,
         TransactionOrdermaster,
+        TransactionOrderdetail,
         plans
     } = useContext(InitContext);
     const { 
@@ -159,6 +160,12 @@ function ServicePackage(props) {
         
     }
 
+    const clickMsg = async e => {
+        setMsg(null)
+        setRunFetch(!runFetch)        
+        props.history.push("/app/myaccount")
+    }
+
     const toggleAddress = e => {
         if(addressCheckboxRef.current.checked){
             shippingAddressRef.current.value=taxAddressRef.current.value;
@@ -166,12 +173,46 @@ function ServicePackage(props) {
             shippingAddressRef.current.value=""
         }
     }
-    
-    const clickMsg = async e => {
-        setMsg(null)
-        setRunFetch(!runFetch)        
-        props.history.push("/app/myaccount")
-    }
+
+    useEffect(()=>{
+        console.log("run transactionOrderDeatail")
+        console.log({                
+            "action" : "Add", 
+            "orderno": orderMasterObj.orderno,
+            "packageid": "freepackage01",
+            "itemno": "not sure",
+            "qty": "1",
+            "price": orderMasterObj.amount,
+            "tax": parseInt(orderMasterObj.amount)*0.05,
+            "total": parseInt(orderMasterObj.amount)*1.05,
+            "effectivedate": duration.enabled == 1 && duration.from,
+            "expirationdate": duration.enabled == 1 && duration.to
+        })
+        fetch(TransactionOrderdetail, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify({
+                "action" : "Add", 
+                "orderno": orderMasterObj.orderno,
+                "packageid": "freepackage01",
+                "itemno": "1",
+                "qty": "1",
+                "price": orderMasterObj.amount,
+                "tax": parseInt(orderMasterObj.amount)*0.05,
+                "total": parseInt(orderMasterObj.amount)*1.05,
+                "effectivedate": duration.enabled == 1 && duration.from,
+                "expirationdate": duration.enabled == 1 && duration.to
+            })  
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data)
+        })
+        .catch(err=>console.error(err))
+    },[TransactionOrderdetail, orderMasterObj])
 
     return(
         <main className="ServicePackage">
