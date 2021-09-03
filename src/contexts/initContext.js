@@ -10,6 +10,7 @@ export const InitProvider = props => {
     const [TransactionServicepackage] = useState("https://jqobw5w2ef.execute-api.ap-southeast-1.amazonaws.com/TransactionServicepackage")
     const [TransactionUserServicepackage] = useState("https://jqobw5w2ef.execute-api.ap-southeast-1.amazonaws.com/TransactionUserServicepackage")
     const [TransactionOrdermaster] = useState("https://jqobw5w2ef.execute-api.ap-southeast-1.amazonaws.com/TransactionOrdermaster")
+    const [TransactionOrderdetail] = useState("https://jqobw5w2ef.execute-api.ap-southeast-1.amazonaws.com/TransactionOrderdetail");
     const [header_auth] = useState({
         "Content-Type": "application/json",
         'Authorization': `Bearer ${localStorage.getItem("token")}`
@@ -23,7 +24,7 @@ export const InitProvider = props => {
             "packagename_en": "Free Package",
             "description": "Free Package 01",
             "price": 0,
-            "enabled":  0,
+            "enabled":  1,
             "createuserid": "admin",
             "createdatetime": "2021-08-13T09:36:53",
             "updateuserid": "admin",
@@ -97,6 +98,7 @@ export const InitProvider = props => {
             header_auth,
             TransactionServicepackage,
             TransactionUserServicepackage,
+            TransactionOrderdetail,
             plans,
             TransactionOrdermaster
         }}>

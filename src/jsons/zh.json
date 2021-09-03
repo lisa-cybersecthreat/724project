@@ -84,8 +84,8 @@
         "advance": "進階方案",
         "vip": "vip方案",
         "customerize": "客製化",
-        "enabled0":"停用",
-        "enabled1": "啟用"           
+        "enabled0":"未開通",
+        "enabled1": "已開通"           
     },
     "month": "月",
     "year": "年",

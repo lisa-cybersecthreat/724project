@@ -130,8 +130,8 @@ function ServicePackage(props) {
 
         const data={
             action: "Add", 
-            userid: "new",
-            orderno: new Date().toISOString(),
+            userid: localStorage.getItem("userid"),
+            orderno: new Date().toISOString().slice(0, 10).replaceAll("-", "")+new Date().toTimeString().slice(0,8).replaceAll(":", ""),
             orderdate: new Date().toISOString().slice(0, 10),
             amount: totalAmount,
             // "orderstatus"     : "0",    =>int, 0=處理中,1=已完成,2=取消
@@ -159,12 +159,6 @@ function ServicePackage(props) {
         
     }
 
-    const clickMsg = e => {
-        setMsg(null)
-        props.history.push("/app/myaccount")
-        setRunFetch(!runFetch)
-    }
-
     const toggleAddress = e => {
         if(addressCheckboxRef.current.checked){
             shippingAddressRef.current.value=taxAddressRef.current.value;
@@ -172,10 +166,17 @@ function ServicePackage(props) {
             shippingAddressRef.current.value=""
         }
     }
+    
+    const clickMsg = async e => {
+        setMsg(null)
+        setRunFetch(!runFetch)        
+        props.history.push("/app/myaccount")
+    }
 
     return(
         <main className="ServicePackage">
             <h1>4步驟訂購</h1>
+            {/* <button onClick={clickPrint}>print</button> */}
             <div className="wrapper">
                 <p>
                     <span>{t("your_package")}: </span>
@@ -296,7 +297,7 @@ function ServicePackage(props) {
                                                 <option value="3">{t("returned")}</option>                                   
                                             </select>
                                         </label>                   */}
-                                        <input name="amount" value={totalAmount} disabled={true} />
+                                        {/* <input name="amount" value={totalAmount} disabled={true} /> */}
                                         <p>{t("total_amount")}<span className="price">{totalAmount}</span></p>
                                     <button>{t("pay")}</button>
                                 </form>                   
@@ -312,11 +313,11 @@ function ServicePackage(props) {
                                                 thisUser={thisUser}
                                                 selectedPlan={selectedPlan}
                                                 orderMasterObj={orderMasterObj}
+                                                uuidv4={uuidv4}
                                                 />          
                             }
 
             </div>
-       
         </main>
     )
 }
