@@ -166,7 +166,7 @@ function Navbar (props) {
                     <FaUserEdit/><p>{t("my_account")}</p>
                 </NavLink>
                 {
-                    // thisPackage.packageid.indexOf("free")!==-1 &&                
+                    packages.length<1 &&                
                     <NavLink
                         exact
                         to={{

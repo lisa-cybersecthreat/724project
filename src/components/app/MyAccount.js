@@ -101,7 +101,7 @@ function MyAccount (props) {
         .then(res=>res.json())
         .then(data=>{
             console.log(data)
-            // window.location.reload()
+            window.location.reload()
         })
         .catch(err=>console.error(err))
     }
@@ -181,7 +181,8 @@ function MyAccount (props) {
                                     {
                                         (thisPackage.enabled==1&&thisPackage.packageid.indexOf("free")===-1) && `(${t("expire to")}: ${thisPackage.expiration.slice(0, 10)})`
                                      }
-                                    <button><NavLink exact to="/app/store">{t("upgrade")}</NavLink></button>
+                                     {packages.length<1 && <button><NavLink exact to="/app/store">{t("upgrade")}</NavLink></button>}
+                                    
                                 </span>
                             </p>
                             {/* {
@@ -213,8 +214,6 @@ function MyAccount (props) {
                                         <button onClick={()=>delPackages(pk.packageid)}>delete</button>
                                     </ul>)}                                
                             </div>
-
-
                         </div>                        
                     }
                     {
@@ -230,6 +229,15 @@ function MyAccount (props) {
                                                             orderDetail={orderDetail}
                                                              />)
                             }        
+                            {/* {
+                                orderMaster.map((om, i) => 
+                                    <ul style={{border: "1px solid olive"}} key={uuidv4()}>
+                                        {Object.keys(om).map((key, i)=><li key={uuidv4()}>{key}: {Object.values(om)[i]}</li>)}
+                                        <button onClick={()=>clickOrderDetail(om.orderno)}>clickOrderDetail</button>
+                                        <button onClick={()=>delOderMaster(om.orderno)}>delete</button>
+                                    </ul>
+                                )
+                            } */}
                             </div>
 
                         </div>

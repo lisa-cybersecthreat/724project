@@ -35,7 +35,7 @@ const OrderMaster = props => {
                     <li key={props.uuidv4()} >{key}: {Object.values(props.om)[i]}</li>)
                 }
                 <button onClick={()=>clickOrderDetail(props.om.orderno)}>clickOrderDetail</button>
-                <button onClick={()=>props.delOderMaster(props.om.orderno)}>delete</button>
+                <button onClick={()=>props.delOrderMaster(props.om.orderno)}>delete</button>
             </ul>
             <ul><p>orderDetail: </p>
                 {
@@ -47,9 +47,3 @@ const OrderMaster = props => {
 }
 
 export default OrderMaster;
-
-{/* <ul style={{border: "1px solid olive"}} key={uuidv4()}>
-{Object.keys(om).map((key, i)=><li key={uuidv4()}>{key}: {Object.values(om)[i]}</li>)}
-<button onClick={()=>clickOrderDetail(om.orderno)}>clickOrderDetail</button>
-<button onClick={()=>delOderMaster(om.orderno)}>delete</button>
-</ul> */}
